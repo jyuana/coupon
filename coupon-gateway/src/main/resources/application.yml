@@ -1,0 +1,29 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: coupon-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://server1:8000/eureka/
+
+zuul:
+  prefix: /jiany
+  routes:
+    # 优惠券模板微服务路由定义
+    eureka-client-coupon-template: /coupon-template/**
+    # 分发微服务定义
+    eureka-client-coupon-distribution: /coupon-distribution/**
+    # 结算微服务功能定义
+    eureka-client-coupon-settlement: /coupon-settlement/**
+
+  host:
+    connect-timeout-millis: 15000
+    socket-timeout-millis: 60000
+
+ribbon:
+  ConnectTimeout: 15000
+  ReadTimeout: 15000
